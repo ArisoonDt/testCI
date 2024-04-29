@@ -13,6 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
+    - 
+      uses: actions/checkout@v4
+    -
+      name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - 
+      name: Build the Docker image
       run: docker build . --file Dockerfile --tag testci:$(date +%s)
+    -
+      name: Push to Docker hub
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/testci:$(date +%s)
+      
+
