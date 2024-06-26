@@ -3,7 +3,9 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request_target:
+  pull_request:
+    types:
+     - closed
     branches: [ "main" ]
 
 jobs:
